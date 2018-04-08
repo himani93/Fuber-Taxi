@@ -37,6 +37,7 @@ class TestRide(object):
         assert type(self.ride_one.drop_location) == Location
         assert isinstance(self.ride_one.start_time, datetime.datetime) == True
         assert self.ride_one.end_time == None
+        assert self.ride_one.status == "started"
 
     def test_customer(self):
         pass

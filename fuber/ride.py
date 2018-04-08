@@ -19,6 +19,7 @@ class Ride(object):
 
         self._start_time = datetime.datetime.now()
         self._end_time = None
+        self._status = "started"
 
     @property
     def id(self):
@@ -49,4 +50,5 @@ class Ride(object):
         # set status to complete
         # set cost
         # set taxi as available
+        # customer riding to False
         pass
