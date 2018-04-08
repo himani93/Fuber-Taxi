@@ -41,7 +41,7 @@ class RiderApp(object):
             rider = Rider(body.get("name"))
         except InvalidRiderNameException as e:
             response.body = json.dumps({"message": "Rider name is not valid"})
-            response.status = falcon.HTTP_400
+            raise falcon.HTTPPreconditionFailed
         else:
             RIDERS.append(rider)
             response.body = json.dumps({"message": "Rider registered.", "data": rider.to_dict()})
