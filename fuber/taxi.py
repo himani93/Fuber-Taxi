@@ -3,11 +3,13 @@ import helper
 from exceptions import (
     InvalidTaxiLicenseNumberException,
     InvalidTaxiColorException,
+    InvalidLocationException,
 )
+from location import Location
 
 
 class Taxi(object):
-    def __init__(self, license_no, color="yellow"):
+    def __init__(self, license_no, color="yellow", location=None):
         if not license_no:
             raise InvalidTaxiLicenseNumberException("{} is not valid".format(license_no))
         self._license_no = license_no
@@ -22,6 +24,7 @@ class Taxi(object):
             self._category = "default"
 
         self.available = True
+        self.location = location
         self._id = helper.get_id()
 
     @property
@@ -39,3 +42,14 @@ class Taxi(object):
     @property
     def id(self):
         return self._id
+
+    @property
+    def location(self):
+        return self._location
+
+    @location.setter
+    def location(self, loc):
+        if loc is not None and type(loc) is not Location:
+            raise InvalidLocationException("{} is not of Location type".format(loc))
+
+        self._location = loc

@@ -22,6 +22,12 @@ class Location(object):
     def __str__(self):
         return "Location({}, {})".format(self._latitude, self._longitude)
 
+    def __eq__(self, other):
+        if self.latitude == other.latitude and self.longitude == other.longitude:
+            return True
+        else:
+            return False
+
     @property
     def latitude(self):
         return self._latitude

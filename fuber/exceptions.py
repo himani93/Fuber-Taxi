@@ -13,3 +13,5 @@ class InvalidLocationLatitudeException(Exception):
 class InvalidLocationLongitudeException(Exception):
     pass
 
+class InvalidLocationException(Exception):
+    pass

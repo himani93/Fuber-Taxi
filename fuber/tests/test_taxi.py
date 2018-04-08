@@ -3,8 +3,11 @@ import pytest
 from ..exceptions import (
     InvalidTaxiLicenseNumberException,
     InvalidTaxiColorException,
+    InvalidLocationException,
 )
 from ..taxi import Taxi
+from ..location import Location
+
 
 class TestTaxi(object):
 
@@ -64,4 +67,26 @@ class TestTaxi(object):
             self.yellow_taxi.category = "sedan"
 
     def test_taxi_location(self):
-        pass
+        assert self.yellow_taxi.location == None
+        with pytest.raises(InvalidLocationException) as context:
+            red_taxi = Taxi("KA-09-67-9908", location="")
+        with pytest.raises(InvalidLocationException) as context:
+            red_taxi = Taxi("KA-09-67-9908", location="A")
+        with pytest.raises(InvalidLocationException) as context:
+            red_taxi = Taxi("KA-09-67-9908", location=1)
+
+        red_taxi = Taxi("KA-09-67-9908", location=Location(1, 1))
+        assert red_taxi.location == Location(1, 1)
+
+        with pytest.raises(InvalidLocationException) as context:
+            self.yellow_taxi.location = ""
+        with pytest.raises(InvalidLocationException) as context:
+            self.yellow_taxi.location = "A"
+        with pytest.raises(InvalidLocationException) as context:
+            self.yellow_taxi.location = 1
+
+        self.yellow_taxi.location = Location(1, 3)
+        self.yellow_taxi.location = None
+        self.yellow_taxi = 1
+
+
