@@ -1,0 +1,2 @@
+class InvalidRiderNameException(Exception):
+    pass
