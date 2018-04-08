@@ -7,9 +7,26 @@ from models.exceptions import *
 
 
 class TaxiApp(object):
-    def on_get(self, request, response):
-        response.body = json.dumps({"taxis": TAXIS})
-        response.status = falcon.HTTP_200
+    def _get_taxi(self, taxi_id):
+        taxi = None
+        for taxi_it in TAXIS:
+            if taxi_it.id == tax_id:
+                taxi = taxi_it
+                break
+
+        return taxi
+
+    def on_get(self, request, response, taxi_id=None):
+        if taxi_id:
+            taxi = self._get_taxi(taxi_id)
+            if not taxi:
+                raise falcon.HTTPNotFound()
+            else:
+                response.body = json.dumps({"id": taxi_id})
+                response.status = falcon.HTTP_200
+        else:
+            response.body = json.dumps({"taxis": TAXIS})
+            response.status = falcon.HTTP_200
 
     def on_post(self, request, response):
         body = json.load(request.stream)
