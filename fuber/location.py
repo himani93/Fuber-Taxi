@@ -36,4 +36,3 @@ class Location(object):
 
         distance = math.sqrt(lat_len**2 + lon_len**2)
         return distance
-
