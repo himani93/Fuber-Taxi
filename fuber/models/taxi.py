@@ -40,7 +40,7 @@ class Taxi(object):
             "color": self.color,
             "available": self.available,
             "category": self.category,
-            "location": self.location,
+            "location": self.location.to_dict() if self.location else self.location,
         }
 
     @property
