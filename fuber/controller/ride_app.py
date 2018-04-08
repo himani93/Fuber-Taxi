@@ -70,3 +70,28 @@ class RideApp(object):
         RIDES.append(ride)
         response.body = json.dumps({"message": "Ride registered.", "data": ride.to_dict()})
         response.status = falcon.HTTP_201
+
+    def on_put(self, request, response, rider_id=None):
+        if not rider_id:
+            raise falcon.HTTPPreconditionFailed("Rider id not provided")
+
+        rider = helpers.get_rider(rider_id)
+        if not rider:
+            raise falcon.HTTPPreconditionFailed("Rider with id: {} not found".format(rider_id))
+
+        if not rider.riding:
+            raise falcon.HTTPUnprocessableEntity("Rider is currently not riding")
+
+        body = json.load(request.stream)
+        end_ride = body.get("end_ride", False)
+
+        if not end_ride:
+            raise falcon.HTTPBadRequest
+
+        rider_current_ride = helpers.get_rider_current_ride(rider_id)
+        if not rider_current_ride:
+            raise falcon.HTTPUnprocessableEntity("Current ride of Rider: {} not found".format(rider))
+
+        rider_current_ride.stop()
+        response.body = json.dumps({"message": "Ride has ended", "data": rider_current_ride.to_dict()})
+        response.status = falcon.HTTP_200

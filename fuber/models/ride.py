@@ -76,6 +76,9 @@ class Ride(object):
     def set_taxi_unavailable(self):
         self._status = "taxi_unavailable"
 
+    def is_on_going(self):
+        return True if self.status == "on_going" else False
+
     def start(self, taxi):
         self._status = "on_going"
         self._taxi = taxi

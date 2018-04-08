@@ -29,6 +29,18 @@ def get_all_riders():
 def get_rider_rides(rider_id):
     return [ride for ride in RIDES if ride.rider.id == rider_id]
 
+def get_rider_current_ride(rider_id):
+    current_ride = None
+    rider_rides = get_rider_rides(rider_id)
+    on_going_rides = filter(lambda ride: ride.is_on_going(), rider_rides)
+
+    try:
+        current_ride = on_going_rides[0]
+    except IndexError:
+        pass
+
+    return current_ride
+
 def get_available_taxis():
     return [taxi for taxi in TAXIS if taxi.available]
 
