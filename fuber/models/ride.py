@@ -75,3 +75,6 @@ class Ride(object):
         # set taxi as available
         # customer riding to False
         pass
+
+    def set_taxi_unavailable(self):
+        self._status = "Taxi Unavailable"

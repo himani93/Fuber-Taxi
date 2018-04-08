@@ -1,8 +1,11 @@
+from collections import defaultdict
+
 from data import (
     TAXIS,
     RIDERS,
     RIDES
 )
+
 
 def serialize(items):
     if type(items) is list:
@@ -26,3 +29,29 @@ def get_all_riders():
 def get_rider_rides(rider_id):
     return [ride for ride in RIDES if ride.rider.id == rider_id]
 
+def get_available_taxis():
+    return [taxi for taxi in TAXIS if taxi.available]
+
+def get_nearest_available_taxi(pickup_location):
+    nearest_taxi = None
+
+    available_taxis = get_available_taxis()
+    available_taxis_with_location = filter(lambda taxi: taxi.location is not None, available_taxis)
+    taxi_to_pickup_distance = defaultdict(list)
+
+    for taxi in available_taxis_with_location:
+        distance = pickup_location.distance(taxi.location)
+        taxi_to_pickup_distance[distance].append(taxi)
+
+    if not taxi_to_pickup_distance:
+        return nearest_taxi
+
+    shortest_distance = min(taxi_to_pickup_distance.keys())
+    nearest_taxis = taxi_to_pickup_distance[shortest_distance]
+
+    try:
+        nearest_taxi = nearest_taxis[0]
+    except IndexError as e:
+        pass
+
+    return nearest_taxi

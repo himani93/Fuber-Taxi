@@ -55,13 +55,19 @@ class RideApp(object):
             raise falcon.HTTPPreconditionFailed
 
         try:
-            ride = Ride(Location(**pickup_location), Location(**drop_location), "A")
+            ride = Ride(Location(**pickup_location), Location(**drop_location), rider)
         except Exception as e:
             print e
             raise falcon.HTTPUnprocessableEntity
-        else:
-            RIDES.append(ride)
-            response.body = json.dumps({"message": "Ride registered.", "data": ride.to_dict()})
-            response.status = falcon.HTTP_201
+
+        taxi = helpers.get_nearest_available_taxi(Location(**pickup_location))
+        if not taxi:
+            ride.set_taxi_unavailable()
+            raise falcon.HTTPUnprocessableEntity("Taxi is unavailable")
+
+        # ride.set_taxi_available(taxi)
+        RIDES.append(ride)
+        response.body = json.dumps({"message": "Ride registered.", "data": ride.to_dict()})
+        response.status = falcon.HTTP_201
 
         print ride.id
