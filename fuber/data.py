@@ -1,0 +1,3 @@
+TAXIS = []
+RIDERS = []
+RIDES = []
