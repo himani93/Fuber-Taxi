@@ -71,7 +71,7 @@ class RideApp(object):
         response.body = json.dumps({"message": "Ride registered.", "data": ride.to_dict()})
         response.status = falcon.HTTP_201
 
-    def on_put(self, request, response, rider_id=None):
+    def on_patch(self, request, response, rider_id=None):
         if not rider_id:
             raise falcon.HTTPPreconditionFailed("Rider id not provided")
 
