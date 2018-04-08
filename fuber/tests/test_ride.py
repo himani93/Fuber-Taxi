@@ -1,12 +1,15 @@
 import pytest
 
 from ..ride import Ride
-
+from ..location import Location
+from ..exceptions import (
+    InvalidLocationException,
+)
 
 class TestRide(object):
 
     def setup(self):
-        self.ride_one = Ride()
+        self.ride_one = Ride(Location(1, 2), Location(2, 3))
 
     def test_ride_id(self):
        assert type(self.ride_one.id) == str
@@ -14,11 +17,16 @@ class TestRide(object):
        with pytest.raises(AttributeError):
             self.ride_one.id = 8
 
-    def test_invalid_pickup_location(self):
-        pass
+    def test_invalid_pickup_drop_location(self):
+        with pytest.raises(InvalidLocationException) as context:
+            Ride(1,2)
 
-    def test_invalid_drop_location(self):
-        pass
+    def test_ride_location_cannot_be_changed(self):
+        ride_two = Ride(Location(1, 2), Location(3, 4))
+        with pytest.raises(AttributeError) as context:
+            ride_two.drop_location = Location(3, 6)
+        with pytest.raises(AttributeError) as context:
+            ride_two.pickup_location = Location(3, 6)
 
     def test_invalid_ride_start_time(self):
         pass
