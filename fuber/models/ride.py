@@ -29,6 +29,17 @@ class Ride(object):
         self._end_time = None
         self._status = "started"
 
+    def to_dict(self):
+        return {
+            "pickup_location": self.pickup_location.to_dict() if self.pickup_location else None,
+            "drop_location": self.drop_location.to_dict() if self.drop_location else None,
+            "rider": self.rider.to_dict(),
+            "start_time": str(self.start_time) if self.start_time else None,
+            "end_time": str(self.end_time) if self.end_time else None,
+            "status": self.status,
+            # "taxi": self.taxi.to_dict() if self.taxi else None,
+        }
+
     @property
     def id(self):
         return self._id
