@@ -19,3 +19,11 @@ class Location(object):
 
     def __str__(self):
         return "Location({}, {})".format(self._latitude, self._longitude)
+
+    @property
+    def latitude(self):
+        return self._latitude
+
+    @property
+    def longitude(self):
+        return self._longitude

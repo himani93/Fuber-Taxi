@@ -8,6 +8,9 @@ from ..exceptions import (
 
 
 class TestLocation(object):
+    def setup(self):
+        self.taj_mahal_location = Location(1, 18)
+
     def test_invalid_latitude(self):
         with pytest.raises(InvalidLocationLatitudeException) as context:
             Location(None, 1)
@@ -29,9 +32,17 @@ class TestLocation(object):
             Location(1, "1")
 
     def test_location_repr(self):
-        taj_mahal_location = Location(1, 18)
-        assert repr(taj_mahal_location) == "Location(1, 18)"
+        assert repr(self.taj_mahal_location) == "Location(1, 18)"
 
     def test_location_str(self):
-        taj_mahal_location = Location(1, 18)
-        assert str(taj_mahal_location) == "Location(1, 18)"
+        assert str(self.taj_mahal_location) == "Location(1, 18)"
+
+    def test_location_latitude(self):
+        assert self.taj_mahal_location.latitude == 1
+        with pytest.raises(AttributeError) as context:
+            self.taj_mahal.latitude = 22
+
+    def test_location_longitude(self):
+        assert self.taj_mahal_location.longitude == 18
+        with pytest.raises(AttributeError) as context:
+            self.taj_mahal.longitude = 22
