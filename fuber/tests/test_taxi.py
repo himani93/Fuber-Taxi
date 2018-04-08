@@ -10,7 +10,8 @@ class TestTaxi(object):
 
     def setup(self):
         self.yellow_taxi = Taxi("KA-01-HH-1234")
-        self.pink_taxi = Taxi("KA-01-PP-1111")
+        self.pink_taxi = Taxi("KA-01-PP-1111", "pink")
+        self.black_taxi = Taxi("KA-01-BB-1237", "black")
 
     def test_taxi_invalid_license_no(self):
         with pytest.raises(TypeError) as context:
@@ -46,7 +47,12 @@ class TestTaxi(object):
 
     def test_taxi_is_available_by_default(self):
         assert self.yellow_taxi.available == True
+        self.yellow_taxi.available = False
+        assert self.yellow_taxi.available == False
 
     def test_taxi_category(self):
-        pass
-
+        assert self.yellow_taxi.category == "default"
+        assert self.pink_taxi.category == "pink"
+        assert self.black_taxi.category == "default"
+        with pytest.raises(AttributeError) as context:
+            self.yellow_taxi.category = "sedan"

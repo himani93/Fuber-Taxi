@@ -13,6 +13,12 @@ class Taxi(object):
         if not color:
             raise InvalidTaxiColorException("{} is not valid".format(color))
         self._color = color
+
+        if color == "pink":
+            self._category = "pink"
+        else:
+            self._category = "default"
+
         self.available = True
 
     @property
@@ -22,3 +28,7 @@ class Taxi(object):
     @property
     def color(self):
         return self._color
+
+    @property
+    def category(self):
+        return self._category
