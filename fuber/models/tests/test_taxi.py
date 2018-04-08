@@ -89,4 +89,6 @@ class TestTaxi(object):
         self.yellow_taxi.location = None
         self.yellow_taxi = 1
 
-
+    def test_taxi_repr_str(self):
+        assert repr(self.yellow_taxi) == "Taxi(KA-01-HH-1234 - yellow - True)"
+        assert repr(self.yellow_taxi) == "Taxi(KA-01-HH-1234 - yellow - True)"

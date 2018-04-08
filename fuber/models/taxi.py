@@ -27,6 +27,12 @@ class Taxi(object):
         self.location = location
         self._id = helper.get_id()
 
+    def __repr__(self):
+        return "Taxi({} - {} - {})".format(self.license_no, self.color, self.available)
+
+    def __str__(self):
+        return "Taxi({} - {} - {})".format(self.license_no, self.color, self.available)
+
     @property
     def license_no(self):
         return self._license_no
