@@ -13,3 +13,9 @@ class Location(object):
         if not lon or type(lon) is not int:
             raise InvalidLocationLongitudeException("{} is not valid".format(lon))
         self._longitude = lon
+
+    def __repr__(self):
+        return "Location({}, {})".format(self._latitude, self._longitude)
+
+    def __str__(self):
+        return "Location({}, {})".format(self._latitude, self._longitude)
