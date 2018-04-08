@@ -69,3 +69,6 @@ class Taxi(object):
             raise InvalidLocationException("{} is not of Location type".format(loc))
 
         self._location = loc
+
+    def is_pink(self):
+        return True if self.category == "pink" else False

@@ -92,3 +92,7 @@ class TestTaxi(object):
     def test_taxi_repr_str(self):
         assert repr(self.yellow_taxi) == "Taxi(KA-01-HH-1234 - yellow - True)"
         assert repr(self.yellow_taxi) == "Taxi(KA-01-HH-1234 - yellow - True)"
+
+    def test_taxi_is_pink(self):
+        assert self.yellow_taxi.is_pink() == False
+        assert self.pink_taxi.is_pink() == True
