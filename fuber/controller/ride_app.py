@@ -1,17 +1,16 @@
 import falcon
 import json
+import helpers
 
 from models.ride import Ride
 from models.location import Location
 from models.exceptions import *
 
-import helpers
 from data import (
     TAXIS,
     RIDES,
     RIDERS,
 )
-
 
 
 class RideApp(object):
@@ -39,7 +38,6 @@ class RideApp(object):
             response.status = falcon.HTTP_200
 
     def on_post(self, request, response, rider_id=None):
-        # from pudb import set_trace; set_trace()
         if not rider_id:
             raise falcon.HTTPPreconditionFailed("Rider id not provided")
 
