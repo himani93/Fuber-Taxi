@@ -33,6 +33,16 @@ class Taxi(object):
     def __str__(self):
         return "Taxi({} - {} - {})".format(self.license_no, self.color, self.available)
 
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "license_no": self.license_no,
+            "color": self.color,
+            "available": self.available,
+            "category": self.category,
+            "location": self.location,
+        }
+
     @property
     def license_no(self):
         return self._license_no

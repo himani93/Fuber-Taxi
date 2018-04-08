@@ -10,7 +10,7 @@ class TaxiApp(object):
     def _get_taxi(self, taxi_id):
         taxi = None
         for taxi_it in TAXIS:
-            if taxi_it.id == tax_id:
+            if taxi_it.id == taxi_id:
                 taxi = taxi_it
                 break
 
@@ -22,10 +22,11 @@ class TaxiApp(object):
             if not taxi:
                 raise falcon.HTTPNotFound()
             else:
-                response.body = json.dumps({"id": taxi_id})
+                response.body = json.dumps(taxi.to_dict())
                 response.status = falcon.HTTP_200
         else:
-            response.body = json.dumps({"taxis": TAXIS})
+            taxis = [taxi.to_dict() for taxi in TAXIS]
+            response.body = json.dumps({"taxis": taxis})
             response.status = falcon.HTTP_200
 
     def on_post(self, request, response):
@@ -41,6 +42,5 @@ class TaxiApp(object):
             response.status = falcon.HTTP_400
         else:
             TAXIS.append(taxi)
-            print TAXIS
-            response.body = json.dumps({"message": "Taxi registered."})
+            response.body = json.dumps({"message": "Taxi registered.", "data": taxi.to_dict()})
             response.status = falcon.HTTP_201

@@ -28,6 +28,12 @@ class Location(object):
         else:
             return False
 
+    def to_dict(self):
+        return {
+            "latitude": self.latitude,
+            "longitude": self.longitude,
+        }
+
     @property
     def latitude(self):
         return self._latitude
