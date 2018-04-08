@@ -1,12 +1,16 @@
 import datetime
 import helper
 
-from exceptions import InvalidLocationException
+from rider import Rider
+from exceptions import (
+    InvalidLocationException,
+    InvalidRiderException,
+)
 from location import Location
 
 
 class Ride(object):
-    def __init__(self, pickup_location, drop_location):
+    def __init__(self, pickup_location, drop_location, rider):
         self._id = helper.get_id()
 
         if pickup_location is not None and type(pickup_location) is not Location:
@@ -17,6 +21,10 @@ class Ride(object):
             raise InvalidLocationException("{} is not of Location type".format(drop_location))
         self._drop_location = drop_location
 
+        if type(rider) is not Rider:
+            raise InvalidRiderException("{} is not a valid Rider".format(rider))
+
+        self._rider = rider
         self._start_time = datetime.datetime.now()
         self._end_time = None
         self._status = "started"
@@ -32,6 +40,10 @@ class Ride(object):
     @property
     def drop_location(self):
         return self._drop_location
+
+    @property
+    def rider(self):
+        return self._rider
 
     @property
     def start_time(self):

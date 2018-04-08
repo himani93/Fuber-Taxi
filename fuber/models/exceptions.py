@@ -21,3 +21,6 @@ class InvalidRidingStatusException(Exception):
 
 class RidingStatusSameException(Exception):
     pass
+
+class InvalidRiderException(Exception):
+    pass
