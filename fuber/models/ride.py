@@ -27,7 +27,8 @@ class Ride(object):
         self._rider = rider
         self._start_time = datetime.datetime.now()
         self._end_time = None
-        self._status = "started"
+        self._taxi = None
+        self._status = "processing"
 
     def to_dict(self):
         return {
@@ -37,7 +38,7 @@ class Ride(object):
             "start_time": str(self.start_time) if self.start_time else None,
             "end_time": str(self.end_time) if self.end_time else None,
             "status": self.status,
-            # "taxi": self.taxi.to_dict() if self.taxi else None,
+            "taxi": self.taxi.to_dict() if self.taxi else None,
         }
 
     @property
@@ -68,13 +69,22 @@ class Ride(object):
     def status(self):
         return self._status
 
-    def end_ride(self):
-        # set end time
-        # set status to complete
-        # set cost
-        # set taxi as available
-        # customer riding to False
-        pass
+    @property
+    def taxi(self):
+        return self._taxi
 
     def set_taxi_unavailable(self):
-        self._status = "Taxi Unavailable"
+        self._status = "taxi_unavailable"
+
+    def start(self, taxi):
+        self._status = "on_going"
+        self._taxi = taxi
+        self._taxi.available = False
+        self._rider.riding = True
+
+    def stop(self):
+        self._status = "completed"
+        self._end_time = datetime.datetime.now()
+        self._taxi.available = True
+        self._rider.riding = False
+        # set cost
