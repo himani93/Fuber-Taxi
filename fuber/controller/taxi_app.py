@@ -3,6 +3,7 @@ import json
 
 from data import TAXIS
 from models.taxi import Taxi
+from models.location import Location
 from models.exceptions import *
 
 
@@ -62,3 +63,20 @@ class TaxiApp(object):
             TAXIS.append(taxi)
             response.body = json.dumps({"message": "Taxi registered.", "data": taxi.to_dict()})
             response.status = falcon.HTTP_201
+
+        print taxi.id
+
+    def on_patch(self, request, response, taxi_id=None):
+        body = json.load(request.stream)
+
+        taxi = self._get_taxi(taxi_id)
+        if not taxi:
+            raise falcon.HTTPPreconditionFailed
+
+        location = body.get("location")
+        try:
+            taxi_current_location = Location(location.get("latitude"), location.get("longitude"))
+        except (InvalidLocationLatitudeException, InvalidLocationLongitudeException) as e:
+            raise falcon.HTTPPreconditionFailed
+
+        taxi.location = taxi_current_location
