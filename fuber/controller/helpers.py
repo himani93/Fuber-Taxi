@@ -42,16 +42,21 @@ def get_rider_current_ride(rider_id):
     return current_ride
 
 def get_available_taxis():
-    return [taxi for taxi in TAXIS if taxi.available]
+    return [taxi for taxi in TAXIS if taxi.available and taxi.location is not None]
 
-def get_nearest_available_taxi(pickup_location):
+def get_available_category_taxis(category):
+    return [taxi for taxi in TAXIS if taxi.available and taxi.location is not None and taxi.category == category]
+
+def get_nearest_available_taxi(pickup_location, taxi_category=None):
     nearest_taxi = None
 
-    available_taxis = get_available_taxis()
-    available_taxis_with_location = filter(lambda taxi: taxi.location is not None, available_taxis)
-    taxi_to_pickup_distance = defaultdict(list)
+    if tax_category:
+        available_taxis = get_available_category_taxis(taxi_category)
+    else:
+        available_taxis = get_available_taxis()
 
-    for taxi in available_taxis_with_location:
+    taxi_to_pickup_distance = defaultdict(list)
+    for taxi in available_taxis:
         distance = pickup_location.distance(taxi.location)
         taxi_to_pickup_distance[distance].append(taxi)
 

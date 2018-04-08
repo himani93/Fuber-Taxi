@@ -61,7 +61,9 @@ class RideApp(object):
             print e
             raise falcon.HTTPUnprocessableEntity(e)
 
-        taxi = helpers.get_nearest_available_taxi(Location(**pickup_location))
+        taxi_category = body.get("category")
+
+        taxi = helpers.get_nearest_available_taxi(Location(**pickup_location), taxi_category)
         if not taxi:
             ride.set_taxi_unavailable()
             raise falcon.HTTPUnprocessableEntity("Taxi is unavailable")
