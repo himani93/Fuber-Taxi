@@ -62,3 +62,6 @@ class TestTaxi(object):
         assert self.black_taxi.category == "default"
         with pytest.raises(AttributeError) as context:
             self.yellow_taxi.category = "sedan"
+
+    def test_taxi_location(self):
+        pass
