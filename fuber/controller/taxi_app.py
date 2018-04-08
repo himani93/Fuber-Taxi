@@ -16,7 +16,15 @@ class TaxiApp(object):
 
         return taxi
 
+    def _get_all_taxis(self):
+        return [taxi.to_dict() for taxi in TAXIS]
+
+    def _get_available_taxis(self):
+        return [taxi.to_dict() for taxi in TAXI if taxi.available]
+
     def on_get(self, request, response, taxi_id=None):
+        request_params = request.params
+
         if taxi_id:
             taxi = self._get_taxi(taxi_id)
             if not taxi:
@@ -25,7 +33,12 @@ class TaxiApp(object):
                 response.body = json.dumps(taxi.to_dict())
                 response.status = falcon.HTTP_200
         else:
-            taxis = [taxi.to_dict() for taxi in TAXIS]
+            taxis = []
+            if request_params.get("available", False):
+                taxis = self._get_available_taxis()
+            else:
+                taxis = self._get_all_taxis()
+
             response.body = json.dumps({"taxis": taxis})
             response.status = falcon.HTTP_200
 
@@ -33,7 +46,6 @@ class TaxiApp(object):
         body = json.load(request.stream)
         try:
             taxi = Taxi(body.get("license_no"), body.get("color"))
-            print taxi.id
         except InvalidTaxiColorException as e:
             response.body = json.dumps({"message": "Taxi color is not valid"})
             response.status = falcon.HTTP_400
