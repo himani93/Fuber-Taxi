@@ -6,3 +6,10 @@ class InvalidTaxiLicenseNumberException(Exception):
 
 class InvalidTaxiColorException(Exception):
     pass
+
+class InvalidLocationLatitudeException(Exception):
+    pass
+
+class InvalidLocationLongitudeException(Exception):
+    pass
+
