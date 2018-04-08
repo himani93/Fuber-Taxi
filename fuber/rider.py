@@ -10,6 +10,12 @@ class Rider(object):
         self._id = helper.get_id()
         self.name = rider_name
 
+    def __repr__(self):
+        return "Rider({} - {})".format(self.name, self.id)
+
+    def __str__(self):
+        return self.name
+
     @property
     def id(self):
         return self._id
