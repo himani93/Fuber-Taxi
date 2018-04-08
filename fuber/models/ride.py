@@ -89,5 +89,6 @@ class Ride(object):
         self._status = "completed"
         self._end_time = datetime.datetime.now()
         self._taxi.available = True
+        self._taxi.location = self.drop_location
         self._rider.riding = False
         # set cost
