@@ -1,3 +1,5 @@
+import math
+
 from exceptions import (
     InvalidLocationLatitudeException,
     InvalidLocationLongitudeException,
@@ -27,3 +29,11 @@ class Location(object):
     @property
     def longitude(self):
         return self._longitude
+
+    def distance(self, from_location):
+        lat_len = from_location.latitude - self.latitude
+        lon_len = from_location.longitude - self.longitude
+
+        distance = math.sqrt(lat_len**2 + lon_len**2)
+        return distance
+

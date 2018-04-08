@@ -46,3 +46,9 @@ class TestLocation(object):
         assert self.taj_mahal_location.longitude == 18
         with pytest.raises(AttributeError) as context:
             self.taj_mahal.longitude = 22
+
+    def test_distance_between_two_locations(self):
+        hawa_mahal_location = Location(-2, 1)
+        amer_fort_location = Location(1, 5)
+
+        assert hawa_mahal_location.distance(amer_fort_location) == 5
