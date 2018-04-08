@@ -1,3 +1,5 @@
+import helper
+
 from exceptions import (
     InvalidTaxiLicenseNumberException,
     InvalidTaxiColorException,
@@ -20,6 +22,7 @@ class Taxi(object):
             self._category = "default"
 
         self.available = True
+        self._id = helper.get_id()
 
     @property
     def license_no(self):
@@ -32,3 +35,7 @@ class Taxi(object):
     @property
     def category(self):
         return self._category
+
+    @property
+    def id(self):
+        return self._id

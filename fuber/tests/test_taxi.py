@@ -13,6 +13,12 @@ class TestTaxi(object):
         self.pink_taxi = Taxi("KA-01-PP-1111", "pink")
         self.black_taxi = Taxi("KA-01-BB-1237", "black")
 
+    def test_taxi_id(self):
+        assert type(self.yellow_taxi.id) == str
+        assert len(self.yellow_taxi.id) == 36
+        with pytest.raises(AttributeError):
+            self.yellow_taxi.id = 8
+
     def test_taxi_invalid_license_no(self):
         with pytest.raises(TypeError) as context:
             Taxi()
