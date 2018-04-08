@@ -1,7 +1,12 @@
 import pytest
 
 from ..rider import Rider
-from ..exceptions import InvalidRiderNameException
+from ..exceptions import (
+    InvalidRiderNameException,
+    InvalidRidingStatusException,
+    RidingStatusSameException,
+)
+
 
 class TestRider(object):
 
@@ -31,3 +36,15 @@ class TestRider(object):
 
     def test_rider_str(self):
         assert str(self.rider_himani) == "Himani"
+
+    def test_default_rider_status(self):
+        assert self.rider_himani.riding == False
+
+    def test_rider_set_status(self):
+        with pytest.raises(InvalidRidingStatusException) as e:
+            self.rider_himani.riding = "False"
+        with pytest.raises(RidingStatusSameException) as e:
+            self.rider_himani.riding = False
+
+        self.rider_himani.riding = True
+        assert self.rider_himani.riding == True

@@ -15,3 +15,9 @@ class InvalidLocationLongitudeException(Exception):
 
 class InvalidLocationException(Exception):
     pass
+
+class InvalidRidingStatusException(Exception):
+    pass
+
+class RidingStatusSameException(Exception):
+    pass

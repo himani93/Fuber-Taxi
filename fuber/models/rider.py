@@ -1,5 +1,9 @@
 import helper
-from .exceptions import InvalidRiderNameException
+from .exceptions import (
+    InvalidRiderNameException,
+    InvalidRidingStatusException,
+    RidingStatusSameException,
+)
 
 
 class Rider(object):
@@ -9,6 +13,7 @@ class Rider(object):
 
         self._id = helper.get_id()
         self.name = rider_name
+        self._riding = False
 
     def __repr__(self):
         return "Rider({} - {})".format(self.name, self.id)
@@ -19,3 +24,17 @@ class Rider(object):
     @property
     def id(self):
         return self._id
+
+    @property
+    def riding(self):
+        return self._riding
+
+    @riding.setter
+    def riding(self, status):
+        if type(status) is not bool:
+            raise InvalidRidingStatusException("{} is not valid".format(status))
+
+        if status == self._riding:
+            raise RidingStatusSameException("Riding status is already {}".format(self.riding))
+
+        self._riding = status
