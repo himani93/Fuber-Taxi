@@ -34,9 +34,15 @@ class TestTaxi(object):
             Taxi("KA-01-HH-1234", "")
         assert " is not valid" in context.value
 
-    def test_taxi(self):
+    def test_taxi_license_no(self):
         assert self.yellow_taxi.license_no == "KA-01-HH-1234"
+        with pytest.raises(AttributeError) as context:
+            self.yellow_taxi.license_no = "KA-01-01-0101"
+
+    def test_taxi_color(self):
         assert self.yellow_taxi.color == "yellow"
+        with pytest.raises(AttributeError) as context:
+            self.yellow_taxi.color= "Black"
 
     def test_taxi_category(self):
         pass
