@@ -7,14 +7,14 @@ from exceptions import (
 
 
 class Location(object):
-    def __init__(self, lat, lon):
-        if not lat or type(lat) is not int:
-            raise InvalidLocationLatitudeException("{} is not valid".format(lat))
-        self._latitude = lat
+    def __init__(self, latitude, longitude):
+        if not latitude or type(latitude) is not int:
+            raise InvalidLocationLatitudeException("{} is not valid".format(latitude))
+        self._latitude = latitude
 
-        if not lon or type(lon) is not int:
-            raise InvalidLocationLongitudeException("{} is not valid".format(lon))
-        self._longitude = lon
+        if not longitude or type(longitude) is not int:
+            raise InvalidLocationLongitudeException("{} is not valid".format(longitude))
+        self._longitude = longitude
 
     def __repr__(self):
         return "Location({}, {})".format(self._latitude, self._longitude)
