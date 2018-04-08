@@ -22,6 +22,9 @@ class TaxiApp(object):
     def _get_available_taxis(self):
         return [taxi.to_dict() for taxi in TAXI if taxi.available]
 
+    def _get_pink_taxis(self):
+        return [taxi.to_dict() for taxi in TAXI if taxi.category == "pink"]
+
     def on_get(self, request, response, taxi_id=None):
         request_params = request.params
 
@@ -34,8 +37,11 @@ class TaxiApp(object):
                 response.status = falcon.HTTP_200
         else:
             taxis = []
-            if request_params.get("available", False):
-                taxis = self._get_available_taxis()
+            if request_params.get("available"):
+                if request_params.get("category", "pink"):
+                    taxis = self._get_pink_taxis()
+                else:
+                    taxis = self._get_available_taxis()
             else:
                 taxis = self._get_all_taxis()
 
