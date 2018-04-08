@@ -13,6 +13,7 @@ class Taxi(object):
         if not color:
             raise InvalidTaxiColorException("{} is not valid".format(color))
         self._color = color
+        self.available = True
 
     @property
     def license_no(self):

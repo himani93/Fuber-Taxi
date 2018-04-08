@@ -44,8 +44,9 @@ class TestTaxi(object):
         with pytest.raises(AttributeError) as context:
             self.yellow_taxi.color= "Black"
 
+    def test_taxi_is_available_by_default(self):
+        assert self.yellow_taxi.available == True
+
     def test_taxi_category(self):
         pass
 
-    def test_taxi_available(self):
-        pass
