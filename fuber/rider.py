@@ -1,3 +1,4 @@
+import helper
 from .exceptions import InvalidRiderNameException
 
 
@@ -6,4 +7,9 @@ class Rider(object):
         if not rider_name:
             raise InvalidRiderNameException("{} is not valid".format(rider_name))
 
+        self._id = helper.get_id()
         self.name = rider_name
+
+    @property
+    def id(self):
+        return self._id

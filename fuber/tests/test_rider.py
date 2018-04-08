@@ -16,3 +16,10 @@ class TestRider(object):
 
     def test_rider_name(self):
         assert Rider("Himani").name == "Himani"
+
+    def test_rider_id(self):
+        rider_himani = Rider("Himani")
+        assert type(rider_himani.id) == str
+        assert len(rider_himani.id) == 36
+        with pytest.raises(AttributeError):
+            rider_himani.id = 8
