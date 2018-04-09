@@ -39,3 +39,7 @@ Assumptions on Price calculation:
 
 1. `cd fuber`
 2. `gunicorn app:api --reload --log-file logs.log`
+
+#### Run Test:
+
+1. `pytest`
