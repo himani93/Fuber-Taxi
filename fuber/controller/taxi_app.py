@@ -51,20 +51,26 @@ class TaxiApp(object):
 
     def on_post(self, request, response):
         body = json.load(request.stream)
-        try:
-            taxi = Taxi(body.get("license_no"), body.get("color"))
-        except InvalidTaxiColorException as e:
-            response.body = json.dumps({"message": "Taxi color is not valid"})
-            response.status = falcon.HTTP_400
-        except InvalidTaxiLicenseNumberException as e:
-            response.body = json.dumps({"message": "Taxi license number is not valid"})
-            response.status = falcon.HTTP_400
-        else:
-            TAXIS.append(taxi)
-            response.body = json.dumps({"message": "Taxi registered.", "data": taxi.to_dict()})
-            response.status = falcon.HTTP_201
 
-        print taxi.id
+        taxi_location = None
+
+        location = body.get("location")
+        if location:
+            try:
+                taxi_location = Location(**location)
+            except Exception as e:
+                raise falcon.HTTPBadRequest("Taxi Location is invalid")
+
+        try:
+            taxi = Taxi(body.get("license_no"), body.get("color"), taxi_location)
+        except InvalidTaxiColorException as e:
+            raise falcon.HTTPBadRequest("Taxi color is not valid")
+        except InvalidTaxiLicenseNumberException as e:
+            raise falcon.HTTP.BadRequest("Taxi License number is invalid")
+
+        TAXIS.append(taxi)
+        response.body = json.dumps({"message": "Taxi registered.", "data": taxi.to_dict()})
+        response.status = falcon.HTTP_201
 
     def on_patch(self, request, response, taxi_id=None):
         body = json.load(request.stream)
