@@ -7,12 +7,6 @@ from data import (
 )
 
 
-def serialize(items):
-    if type(items) is list:
-        return [item.to_dict() for item in items]
-    else:
-        return items.to_dict()
-
 def get_rider(rider_id):
     rider = None
 
