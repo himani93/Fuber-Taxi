@@ -58,7 +58,6 @@ class RideApp(object):
         try:
             ride = Ride(Location(**pickup_location), Location(**drop_location), rider)
         except Exception as e:
-            print e
             raise falcon.HTTPUnprocessableEntity(e)
 
         taxi_category = body.get("category")
