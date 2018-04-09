@@ -37,5 +37,5 @@ Assumptions on Price calculation:
 
 #### Start service:
 
-`cd fuber`
-`gunicorn app:api --reload --log-file logs.log`
+1. `cd fuber`
+2. `gunicorn app:api --reload --log-file logs.log`
