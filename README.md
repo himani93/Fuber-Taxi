@@ -28,3 +28,14 @@ Assumptions on Price calculation:
 
 #### Postman collection
 [Link to Postman Collection](https://www.getpostman.com/collections/1e14735a21e76c5a7e21)
+
+
+#### Setup:
+
+1. `pip install -r requirements.txt`
+2. `pip install -r test_requirements.txt`
+
+#### Start service:
+
+`cd fuber`
+`gunicorn app:api --reload --log-file logs.log`
