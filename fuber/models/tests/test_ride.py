@@ -49,11 +49,3 @@ class TestRide(object):
         assert self.ride_one.status == "processing"
         assert self.ride_one.rider == self.rider_yami
 
-    def test_ride_start(self):
-        pass
-
-    def test_ride_status(self):
-        pass
-
-    def test_ride_cost(self):
-        pass
