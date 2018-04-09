@@ -7,6 +7,7 @@ from exceptions import (
     InvalidRiderException,
 )
 from location import Location
+from config import Config
 
 
 class Ride(object):
@@ -29,6 +30,7 @@ class Ride(object):
         self._end_time = None
         self._taxi = None
         self._status = "processing"
+        self._fare = None
 
     def to_dict(self):
         return {
@@ -39,6 +41,7 @@ class Ride(object):
             "end_time": str(self.end_time) if self.end_time else None,
             "status": self.status,
             "taxi": self.taxi.to_dict() if self.taxi else None,
+            "fare": self.fare if self.fare else 0,
         }
 
     @property
@@ -73,6 +76,22 @@ class Ride(object):
     def taxi(self):
         return self._taxi
 
+    @property
+    def fare(self):
+        return self._fare
+
+    def _calculate_ride_fare(self):
+        cost = 0
+
+        distance = self.pickup_location.distance(self.drop_location)
+        time_taken =  (self.end_time - self.start_time).total_seconds() // 60
+
+        cost = distance * Config.PRICE_PER_KM + time_taken * Config.PRICE_PER_MIN
+        if self.taxi.is_pink():
+            cost += Config.PINK_TAXI_CHARGE
+
+        return cost
+
     def set_taxi_unavailable(self):
         self._status = "taxi_unavailable"
 
@@ -91,4 +110,4 @@ class Ride(object):
         self._taxi.available = True
         self._taxi.location = self.drop_location
         self._rider.riding = False
-        # set cost
+        self._fare = self._calculate_ride_fare()
