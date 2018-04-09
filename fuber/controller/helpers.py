@@ -50,7 +50,7 @@ def get_available_category_taxis(category):
 def get_nearest_available_taxi(pickup_location, taxi_category=None):
     nearest_taxi = None
 
-    if tax_category:
+    if taxi_category:
         available_taxis = get_available_category_taxis(taxi_category)
     else:
         available_taxis = get_available_taxis()
