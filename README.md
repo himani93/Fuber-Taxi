@@ -24,7 +24,7 @@ Assumptions on Price calculation:
 
 #### Fuber Taxi API
 
-[Link to Fuber Taxi API](https://documenter.getpostman.com/view/1597190/fuber-taxi/RVu5iTiX)
+[Link to Fuber Taxi API](https://documenter.getpostman.com/collection/view/1597190-c9baab77-0da1-4f66-86f7-e1a258fa8ccd)
 
 #### Postman collection
 [Link to Postman Collection](https://www.getpostman.com/collections/1e14735a21e76c5a7e21)
