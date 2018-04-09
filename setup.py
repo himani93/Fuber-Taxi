@@ -26,6 +26,5 @@ setup(name='FuberTaxi',
       setup_require=['pytest-runner'],
       include_package_data=True,
       entry_points={
-          'console_scripts': ['fubertaxi=gunicorn fuber.app:api --reload --log-file logs.log'],
       },
       zip_safe=False)
