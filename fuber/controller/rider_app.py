@@ -35,16 +35,13 @@ class RiderApp(object):
             response.status = falcon.HTTP_200
 
     def on_post(self, request, response):
-        # from pudb import set_trace; set_trace()
         body = json.load(request.stream)
         try:
             rider = Rider(body.get("name"))
         except InvalidRiderNameException as e:
             response.body = json.dumps({"message": "Rider name is not valid"})
             raise falcon.HTTPPreconditionFailed
-        else:
-            RIDERS.append(rider)
-            response.body = json.dumps({"message": "Rider registered.", "data": rider.to_dict()})
-            response.status = falcon.HTTP_201
 
-        print rider.id
+        RIDERS.append(rider)
+        response.body = json.dumps({"message": "Rider registered.", "data": rider.to_dict()})
+        response.status = falcon.HTTP_201
